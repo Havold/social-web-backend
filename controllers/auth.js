@@ -36,7 +36,7 @@ export const login = (req, res) => {
 
         const checkedPassword = bcryptjs.compareSync(req.body.password, data[0].password);
 
-        if (!checkedPassword) return res.status(400).json('Wrong password!');
+        if (!checkedPassword) return res.status(400).json('Wrong username or password!');
 
         const token = jwt.sign({id: data[0].id}, 'secretKey');
 

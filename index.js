@@ -1,4 +1,4 @@
-import express from "express";
+import express, { application } from "express";
 import userRoutes from "./routes/users.js";
 import postRoutes from "./routes/posts.js";
 import commentRoutes from "./routes/comments.js";
@@ -12,6 +12,7 @@ dotenv.config()
 const app = express();
 
 // USE MIDDLEWARES
+app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);

@@ -12,7 +12,7 @@ export const getPosts = (req, res) => {
     if (err) return res.status(403).json("Token is not valid!");
 
     const q =
-      "SELECT p.*, u.id, name, profilePic FROM posts AS p JOIN users AS u ON (p.userId = u.id) LEFT JOIN relationships AS r ON (p.userId = r.followedUserId) WHERE r.followerUserId = ? OR p.userId = ? ORDER BY createdAt DESC";
+      "SELECT p.*, u.id AS userId, name, profilePic FROM posts AS p JOIN users AS u ON (p.userId = u.id) LEFT JOIN relationships AS r ON (p.userId = r.followedUserId) WHERE r.followerUserId = ? OR p.userId = ? ORDER BY createdAt DESC";
 
     db.query(q, [userInfo.id, userInfo.id], (err, data) => {
       if (err) return res.status(500).json(err);

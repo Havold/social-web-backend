@@ -3,8 +3,8 @@ import { addLike, deleteLike, getLikes } from "../controllers/like.js";
 
 const router = express.Router();
 
-router.get('/:postId', getLikes)
-router.post('/:postId', addLike)
-router.delete('/:postId', deleteLike)
+router.get('/', getLikes)
+router.post('/', addLike)
+router.delete('/', deleteLike)
 
 export default router;

@@ -3,9 +3,9 @@ import jwt from "jsonwebtoken";
 
 export const getLikes = (req, res) => {
   const q = "SELECT * FROM likes WHERE postId = ?";
-  db.query(q, [req.params.postId], (err, data) => {
+  db.query(q, [req.query.postId], (err, data) => {
     if (err) return res.status(500).json(err);
-    return res.status(200).json(data);
+    return res.status(200).json(data.map(like => like.userId));
   });
 };
 
@@ -19,7 +19,7 @@ export const addLike = (req, res) => {
     if (err) return res.status(403).json("TOKEN IS NOT VALID!");
 
     const q = "INSERT INTO likes (`userId`, `postId`) VALUES (?)";
-    const values = [userInfo.id, req.params.postId];
+    const values = [userInfo.id, req.query.postId];
 
     db.query(q, [values], (err, data) => {
       if (err) return res.status(500).json(err);
@@ -37,7 +37,7 @@ export const deleteLike = (req, res) => {
     if (err) return res.status(403).json("TOKEN IS NOT VALID");
 
     const q = "DELETE FROM likes WHERE userId = ? AND postId = ?";
-    const values = [userInfo.id, req.params.postId];
+    const values = [userInfo.id, req.query.postId];
 
     db.query(q, values, (err, data) => {
       if (err) return res.status(500).json(err);

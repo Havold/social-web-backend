@@ -4,42 +4,59 @@ import postRoutes from "./routes/posts.js";
 import commentRoutes from "./routes/comments.js";
 import likeRoutes from "./routes/likes.js";
 import authRoutes from "./routes/auth.js";
-import dotenv from 'dotenv'
-import cors from 'cors'
+import dotenv from "dotenv";
+import cors from "cors";
 import cookieParser from "cookie-parser";
+import multer from "multer";
 
-dotenv.config()
+dotenv.config();
 
 const app = express();
 
 // USE MIDDLEWARES
 app.use(express.json());
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Credentials', true);
+  res.header("Access-Control-Allow-Credentials", true);
 
-    next();
-})
+  next();
+});
 
-app.use(cors({
-    origin: 'http://localhost:3000'
-}));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 app.use(cookieParser());
 
-app.use('/api/users', userRoutes);
-app.use('/api/posts', postRoutes);
-app.use('/api/likes', likeRoutes);
-app.use('/api/comments', commentRoutes);
-app.use('/api/auth', authRoutes);
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../social-web-ui/public/upload");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname);
+  },
+});
 
-app.get('/', (req, res) => {
-    res.send('HELLO WORLD')
-})
+const upload = multer({ storage: storage });
+
+app.use("/api/upload", upload.single("file"), (req, res) => {
+  const file = req.file;
+  res.status(200).json(file.filename);
+});
+
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/likes", likeRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/auth", authRoutes);
+
+app.get("/", (req, res) => {
+  res.send("HELLO WORLD");
+});
 
 const port = process.env.PORT || 8080;
 
-
 app.listen(port, () => {
-    console.log('Backend is running on port: ', port);
-})
-
+  console.log("Backend is running on port: ", port);
+});

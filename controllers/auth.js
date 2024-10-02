@@ -45,6 +45,7 @@ export const login = (req, res) => {
         
         res.cookie('accessToken', token, {
             httpOnly: true,
+            maxAge: 7*24*60*60*1000,
         }).status(200).json(others)
     })
 }
@@ -54,4 +55,10 @@ export const logout = (req, res) => {
         secure: true,
         sameSite: "none",
     }).status(200).json('User has been logged out!')
+}
+
+export const checkToken = (req, res) => {
+    const token = req.cookies.accessToken;
+    if (!token) return res.status(200).json(false);
+    return res.status(200).json(true);
 }

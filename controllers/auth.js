@@ -16,8 +16,9 @@ export const register = (req, res) => {
         const salt = bcryptjs.genSaltSync(10);
         const hashPassword = bcryptjs.hashSync(req.body.password, salt);
 
-        q = 'INSERT INTO users (username, email, password, name) VALUES (?)';
-        const values = [req.body.username, req.body.email, hashPassword, req.body.name];
+        q = 'INSERT INTO users (username, email, password, name, profilePic) VALUES (?)';
+        const defaultProfilePic = '/images/defaultProfilePic.jpg'
+        const values = [req.body.username, req.body.email, hashPassword, req.body.name, defaultProfilePic];
         db.query(q, [values], (err, data) => {
             if (err) return res.status(404).json(err);
             return res.status(200).json('New user has been created!');

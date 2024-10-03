@@ -28,6 +28,7 @@ export const addLike = (req, res) => {
     });
   });
 };
+
 export const deleteLike = (req, res) => {
   // VERIFY LOGGED IN
   const token = req.cookies.accessToken;

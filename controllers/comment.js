@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 export const getComments = (req, res) => {
   const q =
-    "SELECT c.*, profilePic, name FROM comments AS c JOIN users AS u ON (c.userId = u.id) WHERE c.postId = ?";
+    "SELECT c.*, profilePic, name FROM comments AS c JOIN users AS u ON (c.userId = u.id) WHERE c.postId = ? ORDER BY createdAt DESC";
   db.query(q, [req.params.postId], (err, data) => {
     if (err) return res.status(500).json(err);
     return res.status(200).json(data);

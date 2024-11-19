@@ -9,7 +9,7 @@ This is the backend for the **METAN** social web application, providing APIs for
 - **Follow System:** Manage user follow/unfollow functionality.
 - **Database Integration:** Stores all user, post, and interaction data in MySQL.
 - JWT (JSON Web Token) - Used for authentication and session management.
-- 
+  
 ## 💻 Technologies Used
 - Node.js - Runtime environment for building the server.
 - Express.js - Framework for creating RESTful APIs.
@@ -37,7 +37,25 @@ This is the backend for the **METAN** social web application, providing APIs for
     DATABASE_PWD = your_database_password
     DATABASE = your_database_name
    ```
-**4. Set Up the Database:** I will update the files to create the database later. However, you can use MySQL WorkBench to create the database yourself: it will include 4 tables: users, stories, relationships, posts, likes, comments. Details will be as shown in the images below:
+**4. Set Up the Database:** I will update the files to create the database later. However, you can use MySQL WorkBench to create the database yourself: it will include 6 tables: users, stories, relationships, posts, likes, comments. Details will be as shown in the images below:
+- **Table users:**
+![Table Users](./images/table_users.jpg)
+
+- **Table stories:**
+![Table Stories](./images/table_stories.jpg)
+
+- **Table relationships:**
+![Table Relationships](./images/table_relationships.jpg)
+
+- **Table posts:**
+![Table Posts](./images/table_posts.jpg)
+
+- **Table likes:**
+![Table Likes](./images/table_likes.jpg)
+
+- **Table comments:**
+![Table Comments](./images/table_comments.jpg)
+
 **5. Start the Server:**
    ```
    npm start
